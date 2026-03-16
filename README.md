@@ -10,8 +10,8 @@ A neural network architecture where **robustness**, **privacy**, and **expressiv
 
 | Resource | Link |
 |----------|------|
-| Interactive Demo (Google Colab) | [Open in Colab](https://colab.research.google.com/drive/11xAXxd9RqQm0abBs7k6Y-FCFksoA6_lS?usp=sharing) |
-| Project Video (3 min) | [Watch](video/banachsafeai_demo.mp4) |
+| Interactive Demo (Google Colab) | <a href="https://colab.research.google.com/drive/11xAXxd9RqQm0abBs7k6Y-FCFksoA6_lS?usp=sharing" target="_blank">Open in Colab</a> |
+| Project Video (3 min) | <a href="video/banachsafeai_demo.mp4" target="_blank">Watch</a> |
 
 ---
 
@@ -214,7 +214,7 @@ To run: open the link, click **Runtime** then **Run all**. All outputs are pre-r
 
 A 3-minute overview of the project, the architecture, and the safety certificate framework.
 
-[Watch the video](video/banachsafeai_demo.mp4)
+<a href="video/banachsafeai_demo.mp4" target="_blank">Watch the video</a>
 
 ---
 
@@ -240,4 +240,4 @@ K. S. Sesh Kumar
 
 Brevan Howard Centre for Financial Analysis, Imperial Business School
 
-Homepage: [seshkumar.github.io](https://seshkumar.github.io/)
+Homepage: <a href="https://seshkumar.github.io/" target="_blank">seshkumar.github.io</a>
