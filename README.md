@@ -38,7 +38,7 @@ In standard neural networks, this quantity is unknown -- it must be estimated em
 
 Every term in this product is known. There is no approximation. Because each linear layer is spectrally normalised (||A_k|| <= 1), the Lipschitz constant simplifies to L_p = product of (1 + eta_k) in the experiments.
 
-![What is a Lipschitz constant?](figures/fig1_what_is_lipschitz.png)
+![What is a Lipschitz constant?](figs/fig1_what_is_lipschitz.png)
 
 **Left:** A standard neural network can change its output dramatically in response to a tiny input change. **Right:** The Banach ResNet has a known Lipschitz constant. Its output is mathematically confined within a cone -- it cannot change faster than L times the input change.
 
@@ -50,25 +50,25 @@ This single number is the key to all three safety properties.
 
 To our knowledge, no other neural network architecture provides all three properties from a single computable quantity. Standard networks provide none of them with mathematical guarantees.
 
-![One number, three properties](figures/fig5_one_number_three_properties.png)
+![One number, three properties](figs/fig5_one_number_three_properties.png)
 
 ### Robustness
 
 The certified radius r = margin / L_p defines a region around each input where the prediction is guaranteed not to change. Smaller L_p means a larger safe region. This is a deterministic mathematical guarantee -- not an empirical estimate from adversarial attack testing.
 
-![Robustness: the safe zone](figures/fig2_robustness_safe_zone.png)
+![Robustness: the safe zone](figs/fig2_robustness_safe_zone.png)
 
 ### Privacy
 
 The same L_p bounds how much any single training example can influence the model's gradients (per-sample sensitivity). This offers a path to differentially private training (DP-SGD) with structurally bounded sensitivity, providing a principled alternative to the heuristic gradient clipping that standard methods require.
 
-![Privacy: gradient sensitivity](figures/fig3_privacy_gradient_sensitivity.png)
+![Privacy: gradient sensitivity](figs/fig3_privacy_gradient_sensitivity.png)
 
 ### Expressivity
 
 At p = 2 (standard Euclidean geometry), the duality map reduces to the identity and the network collapses to an affine function -- it cannot model nonlinear patterns (Hilbert degeneracy, confirmed experimentally). Moving p away from 2 restores nonlinear computation. The geometry parameter p controls how expressive the network is, and cross-validation selects the value that balances accuracy against the strength of the safety certificate.
 
-![Expressivity: the duality map at different p](figures/fig4_expressivity_p_values.png)
+![Expressivity: the duality map at different p](figs/fig4_expressivity_p_values.png)
 
 ---
 
@@ -118,13 +118,13 @@ Single-subject evaluation (train S1-S8, test S9) achieves 45.7% at p=3.0. Full L
 
 For the full LOSO per-subject results, see the <a href="reports/banachsafeai_moabb_baseline_report.pdf" target="_blank">MOABB Baseline Report</a>.
 
-![p-sweep results](figures/act1_cv_and_test.png)
+![p-sweep results](figs/act1_cv_and_test.png)
 
 ### Per-Prediction Certificates
 
 Every prediction carries its own robustness certificate.
 
-![Per-prediction certificates at p=3.0](figures/act1_certificates_p3.0.png)
+![Per-prediction certificates at p=3.0](figs/act1_certificates_p3.0.png)
 
 **Green** bars: safe (large certified radius). **Orange** bars: marginal. **Red** bars: low confidence. **Black** bars: misclassified.
 
@@ -144,7 +144,7 @@ can change this prediction. This is a mathematical proof.
 
 ## 6. 12-Month Build Plan
 
-![12-month build plan](figures/fig7_fellowship_deliverables.png)
+![12-month build plan](figs/fig7_fellowship_deliverables.png)
 
 By the end of the fellowship, the deliverable is a pip-installable Python package (`banachsafeai`) that allows any PyTorch model to produce deterministic robustness certificates for each prediction on BCI benchmarks.
 
@@ -176,7 +176,7 @@ By the end of the fellowship, the deliverable is a pip-installable Python packag
 
 The end product is not just a trained model -- it is a certificate: a document stating, for each prediction, the robustness radius, the privacy budget consumed, and the expressivity verification.
 
-![From toolkit to regulatory submission](figures/fig6_toolkit_to_regulation.png)
+![From toolkit to regulatory submission](figs/fig6_toolkit_to_regulation.png)
 
 Today, companies submitting AI medical devices provide empirical test reports (adversarial attack results, stress tests). The BanachSafeAI toolkit generates mathematical proof instead -- deterministic, per-prediction, auditable. This is the kind of evidence that regulators are beginning to require. Existing certified methods rely on probabilistic smoothing or loose bounds; the Banach ResNet provides deterministic, closed-form certificates from the architecture itself.
 
