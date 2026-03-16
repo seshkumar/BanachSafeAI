@@ -177,7 +177,33 @@ can change this prediction. This is a mathematical proof.
 
 ## What This Fellowship Will Produce
 
-![Fellowship deliverables](figures/fig7_fellowship_deliverables.png)
+![12-month build plan](figures/fig7_fellowship_deliverables.png)
+
+By the end of the fellowship, the deliverable will be a **pip-installable Python package** (`banachsafeai`) that allows any PyTorch model to produce deterministic robustness certificates for each prediction on BCI benchmarks.
+
+**Month 3:**
+- PyTorch BanachResNet layer with exact Lipschitz computation module
+- MOABB evaluation script benchmarked on motor imagery and P300
+- Comparison against LipNeXt and deel-lip
+
+**Month 6:**
+- Certified robustness benchmark suite
+- Lipschitz-bounded DP-SGD training implementation
+- `model.certify(x)` API returning robustness radius, privacy budget, expressivity check
+- Full leave-one-subject-out cross-subject evaluation
+
+**Month 12:**
+- `pip install banachsafeai`
+- 9+ BCI datasets benchmarked with 3 certified baselines reproduced
+- Paper submitted (NeurIPS / ICML)
+- One external domain validation collaborator identified
+
+**Who will use this:**
+- BCI researchers evaluating robustness of neural decoders
+- Medical AI teams preparing regulatory submissions (MHRA, FDA, EU AI Act)
+- Robustness researchers benchmarking certified models
+
+---
 
 ## The End Product: From Toolkit to Regulatory Submission
 
