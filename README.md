@@ -274,7 +274,7 @@ A 2 minute 37 second overview of the project, the architecture, and the safety c
 
 ---
 
-**One architecture. One parameter. Three safety guarantees. Zero post-hoc testing.**
+**One architecture. One computable quantity. Three safety guarantees. Zero post-hoc testing.**
 
 ---
 

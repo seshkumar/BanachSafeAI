@@ -1,18 +1,18 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.6)  16 MAR 2026 15:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.6)  16 MAR 2026 16:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**
+**banach_resnet_explainer.tex
 
 ! Emergency stop.
-<*> 
-    
-End of file on the terminal!
+<*> banach_resnet_explainer.tex
+                               
+*** (job aborted, file error in nonstop mode)
 
  
 Here is how much of TeX's memory you used:
  3 strings out of 474222
- 129 string characters out of 5748734
+ 126 string characters out of 5748734
  1922975 words of memory out of 5000000
  22359 multiletter control sequences out of 15000+600000
  558069 words of font info for 36 fonts, out of 8000000 for 9000
