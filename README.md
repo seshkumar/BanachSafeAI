@@ -175,6 +175,10 @@ can change this prediction. This is a mathematical proof.
 
 ---
 
+## What This Fellowship Will Produce
+
+![Fellowship deliverables](figures/fig7_fellowship_deliverables.png)
+
 ## The End Product: From Toolkit to Regulatory Submission
 
 The end product is not just a trained model -- it is a **certificate**: a document stating, for each prediction, the robustness radius, the privacy budget consumed, and the expressivity verification.
