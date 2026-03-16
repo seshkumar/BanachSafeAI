@@ -10,7 +10,7 @@ A neural network architecture -- the Banach ResNet -- where robustness, privacy,
 
 | Resource | Description | Link |
 |----------|-------------|------|
-| Project Explainer (2 min 37 sec) | Overview of the architecture and safety certificates | <a href="video/banachsafeai_explainer.mp4" target="_blank">Watch</a> |
+| Project Explainer (2 min 37 sec) | Overview of the architecture and safety certificates | <a href="https://youtu.be/aqhGXsX5nPA" target="_blank">Watch</a> |
 | Interactive Demo (Colab) | Runs in ~2 min on CPU, no installation needed | <a href="https://colab.research.google.com/drive/12-y1v7736gJg8xJPxAPdrNgwXCKFM_T5?usp=sharing" target="_blank">Open in Colab</a> |
 | MOABB Baseline Report (PDF) | Full LOSO comparison on BNCI2014-001 (9 subjects) | <a href="reports/banachsafeai_moabb_baseline_report.pdf" target="_blank">Read report</a> |
 
@@ -198,7 +198,7 @@ The notebook demonstrates the Banach ResNet architecture on a synthetic 4-class 
 
 A 2 minute 37 second overview of the project, the architecture, and the safety certificate framework.
 
-<a href="video/banachsafeai_explainer.mp4" target="_blank">Watch the explainer</a>
+<a href="https://youtu.be/aqhGXsX5nPA" target="_blank">Watch the explainer</a>
 
 ---
 
