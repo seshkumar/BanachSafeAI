@@ -81,11 +81,11 @@ Each prediction has a certified safe zone (green circle). Any perturbation small
 
 When a neural network is trained on patient data, there is a risk that the trained model "memorises" individual patients. The standard defence is **differential privacy (DP)**: clip every patient's gradient to a fixed maximum, then add noise. The problem: clipping distorts gradients and degrades accuracy. Most existing DP methods for neural network training are variants of this approach.
 
-The Banach ResNet offers a principled alternative. The Lipschitz constant L_p bounds every patient's gradient **structurally** -- reducing or eliminating the need for heuristic clipping.
+The Banach ResNet offers a principled alternative. The Lipschitz constant L_p provides **structurally bounded per-sample sensitivity**, offering a path to differentially private training without relying on heuristic clipping.
 
 ![Privacy: gradient sensitivity](figures/fig3_privacy_gradient_sensitivity.png)
 
-**Left:** In a standard network, one patient's data can produce an enormous gradient, requiring clipping (which distorts learning). **Right:** In the Banach ResNet, the Lipschitz bound provides structurally bounded sensitivity, potentially reducing or eliminating reliance on heuristic gradient clipping. Every patient is equally protected by the architecture itself.
+**Left:** In a standard network, one patient's data can produce an enormous gradient, requiring clipping (which distorts learning). **Right:** In the Banach ResNet, the Lipschitz bound offers structurally bounded per-sample sensitivity, providing a principled alternative to heuristic gradient clipping.
 
 ---
 
