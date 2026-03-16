@@ -11,7 +11,7 @@ A neural network architecture -- the Banach ResNet -- where robustness, privacy,
 | Resource | Description | Link |
 |----------|-------------|------|
 | Project Explainer (2 min 37 sec) | Overview of the architecture and safety certificates | <a href="video/banachsafeai_explainer.mp4" target="_blank">Watch</a> |
-| Interactive Demo (Colab) | Runs in ~2 min on CPU, no installation needed | <a href="https://colab.research.google.com/drive/11xAXxd9RqQm0abBs7k6Y-FCFksoA6_lS?usp=sharing" target="_blank">Open in Colab</a> |
+| Interactive Demo (Colab) | Runs in ~2 min on CPU, no installation needed | <a href="https://colab.research.google.com/drive/12-y1v7736gJg8xJPxAPdrNgwXCKFM_T5?usp=sharing" target="_blank">Open in Colab</a> |
 | MOABB Baseline Report (PDF) | Full LOSO comparison on BNCI2014-001 (9 subjects) | <a href="reports/banachsafeai_moabb_baseline_report.pdf" target="_blank">Read report</a> |
 
 ---
@@ -188,7 +188,7 @@ Today, companies submitting AI medical devices provide empirical test reports (a
 
 Runs in ~2 minutes on CPU. No GPU required. No installation needed.
 
-<a href="https://colab.research.google.com/drive/11xAXxd9RqQm0abBs7k6Y-FCFksoA6_lS?usp=sharing" target="_blank">Open in Google Colab</a>
+<a href="https://colab.research.google.com/drive/12-y1v7736gJg8xJPxAPdrNgwXCKFM_T5?usp=sharing" target="_blank">Open in Google Colab</a>
 
 The notebook demonstrates the Banach ResNet architecture on a synthetic 4-class dataset (22 features, mimicking EEG channels). It includes a baseline comparison (Logistic Regression, Standard ResNet, Banach ResNet on the same data), per-prediction robustness certificates, the geometry parameter sweep, and the Hilbert degeneracy at p=2. All outputs are pre-rendered -- the notebook functions as a visual document even without execution.
 
