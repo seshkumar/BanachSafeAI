@@ -79,9 +79,9 @@ Each prediction has a certified safe zone (green circle). Any perturbation small
 
 ### Property 2: Privacy -- Patient Data Cannot Leak
 
-When a neural network is trained on patient data, there is a risk that the trained model "memorises" individual patients. The standard defence is **differential privacy (DP)**: clip every patient's gradient to a fixed maximum, then add noise. The problem: clipping distorts gradients and degrades accuracy. Every existing DP method for neural networks is a variant of this approach.
+When a neural network is trained on patient data, there is a risk that the trained model "memorises" individual patients. The standard defence is **differential privacy (DP)**: clip every patient's gradient to a fixed maximum, then add noise. The problem: clipping distorts gradients and degrades accuracy. Most existing DP methods for neural network training are variants of this approach.
 
-The Banach ResNet eliminates clipping entirely. The Lipschitz constant L_p bounds every patient's gradient **automatically** -- it is a structural property of the architecture, not an external constraint.
+The Banach ResNet offers a principled alternative. The Lipschitz constant L_p bounds every patient's gradient **structurally** -- reducing or eliminating the need for heuristic clipping.
 
 ![Privacy: gradient sensitivity](figures/fig3_privacy_gradient_sensitivity.png)
 
@@ -187,7 +187,9 @@ Three regulatory frameworks converging in 2026 create immediate demand:
 - **UK MHRA**: publishing new AI medical device framework in 2026
 - **US FDA TPLC** (2025): demands lifecycle robustness evidence for AI-enabled medical devices
 
-No existing toolkit provides the mathematical evidence these frameworks require. **The certificate is the product.** It cannot be replicated by running adversarial attacks on a standard network.
+To our knowledge, no existing toolkit provides the mathematical evidence these frameworks are beginning to require. **The certificate is the differentiator.** It cannot be replicated by running adversarial attacks on a standard network.
+
+**Project status:** Research prototype. The proof-of-concept validates the core mechanism on public BCI benchmarks. The fellowship year is about engineering this into a reproducible, installable package with benchmark comparisons and external validation.
 
 ---
 
