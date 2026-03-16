@@ -125,6 +125,8 @@ This is a step of mirror descent in l^p geometry. Spectral normalisation ensures
 
 Validated on the **BNCI2014-001** benchmark: 9 subjects, 22 EEG channels, 4-class motor imagery (left hand, right hand, feet, tongue).
 
+**Geometry parameter sweep** (single fold: train S1-S8, test S9):
+
 | Geometry (p) | Accuracy | Lipschitz L_p | Mean Certified Radius | Note |
 |:---:|:---:|:---:|:---:|---|
 | 1.2 | 42.9% | 4.2 | 0.1026 | |
@@ -132,6 +134,16 @@ Validated on the **BNCI2014-001** benchmark: 9 subjects, 22 EEG channels, 4-clas
 | **2.0** | **39.1%** | **2.7** | **0.2225** | **Hilbert degeneracy (affine)** |
 | **3.0** | **45.7%** | **11.35** | **0.0653** | **CV-selected best geometry** |
 | 4.0 | 40.1% | 16.5 | 0.0764 | |
+
+**Full leave-one-subject-out (LOSO) baseline comparison** (all 9 subjects as held-out test):
+
+| Model | Mean Accuracy | Mean Cert. Radius | Note |
+|---|:---:|:---:|---|
+| Logistic Regression | 37.8% +/- 8.8% | --- | Linear baseline, no certificate |
+| Standard ResNet (ReLU) | 30.2% +/- 5.3% | --- | Nonlinear baseline, no certificate |
+| **Banach ResNet (p=3.0)** | **34.7% +/- 7.6%** | **0.034** | **Only model with any certificate** |
+
+Single-subject evaluation (train S1-S8, test S9) achieves 45.7% at p=3.0. Full LOSO across all 9 subjects yields 34.7% +/- 7.6%, competitive with Standard ResNet (30.2%) and within 3 points of Logistic Regression (37.8%) -- the only model among the three that provides any robustness certificate. Logistic Regression leads on accuracy because log-bandpower features are nearly linear discriminants; the Banach ResNet's spectral normalisation acts as implicit regularisation, preventing the overfitting seen in the Standard ResNet.
 
 ![p-sweep results](figures/act1_cv_and_test.png)
 
