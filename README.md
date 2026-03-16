@@ -15,7 +15,7 @@ A neural network architecture where **robustness**, **privacy**, and **expressiv
 
 ---
 
-## The Problem
+## The Problem: AI Systems Have No Safety Proofs
 
 AI systems deployed in safety-critical settings -- medical devices, brain-computer interfaces (BCIs, systems that decode neural signals to control devices such as wheelchairs and exoskeletons), clinical decision support -- are tested for safety **after** they are built. Companies run adversarial benchmarks, submit the results to regulators (MHRA, FDA, EU notified bodies), and hope for approval.
 
@@ -43,49 +43,75 @@ The **Lipschitz constant** L is a single number that answers this question:
 >
 > No exceptions. No probabilities. A mathematical fact.
 
-In standard neural networks, **nobody knows what L is**. It must be estimated by running experiments.
+In standard neural networks, **nobody knows what L is**. It must be estimated by running experiments, which brings us back to the testing problem.
 
 In the Banach ResNet, L is **computed exactly** from the architecture's weights:
 
 > **L_p = product over all layers of (1 + eta_k x ||A_k||)**
 
-where K is the number of layers, eta_k is a step size, and ||A_k|| is the spectral norm of the k-th layer's weight matrix. Every term in this product is known. There is no approximation.
+Every term in this product is known. There is no approximation.
+
+![What is a Lipschitz constant?](figures/fig1_what_is_lipschitz.png)
+
+**Left:** A standard neural network can change its output dramatically in response to a tiny input change. There is no way to predict the worst case. **Right:** The Banach ResNet has a known Lipschitz constant. Its output is mathematically confined within a cone -- it cannot change faster than L times the input change.
 
 ---
 
-## Three Safety Properties from One Number
+## One Number Controls Three Safety Properties
 
-The Lipschitz constant L_p is the single number that controls all three safety properties:
+The Lipschitz constant L_p is the single number that controls all three safety properties. No other neural network architecture provides all three from a single computable quantity.
 
-### Robustness
+![One number, three properties](figures/fig5_one_number_three_properties.png)
 
-The certified radius **r = margin / L_p** defines a **safe zone** around each input. Any perturbation smaller than r -- electrode noise, session drift, movement artifacts -- is **mathematically guaranteed** not to change the prediction.
+---
 
-A standard neural network gives you a prediction and nothing else. The Banach ResNet gives you a prediction **and a guarantee**.
+### Property 1: Robustness -- Every Prediction Has a Safe Zone
 
-### Privacy
+The certified radius **r = margin / L_p** defines a **safe zone** around each input. Any perturbation of the input that is smaller than r -- electrode noise, session drift, movement artifacts -- is **mathematically guaranteed** not to change the prediction.
 
-The same L_p bounds how much any single training example can influence the model's gradients (per-sample sensitivity). This enables differentially private training (DP-SGD) **without the gradient clipping** that all existing methods require. Clipping distorts gradients and degrades accuracy; the Lipschitz bound eliminates this.
+A standard neural network gives you a prediction and nothing else. The Banach ResNet gives you a prediction **and a guarantee**. A clinician can look at the certificate and decide: "This prediction has a large safe zone -- I trust it" or "This prediction has a small safe zone -- I want a second opinion."
 
-### Expressivity
+![Robustness: the safe zone](figures/fig2_robustness_safe_zone.png)
 
-At **p = 2** (standard Euclidean geometry), the duality map reduces to the identity and the network collapses to an affine function -- it cannot model nonlinear patterns. This is called the **Hilbert degeneracy**, confirmed experimentally.
+Each prediction has a certified safe zone (green circle). Any perturbation smaller than the radius r cannot change the output -- regardless of what kind of noise is added. The Lipschitz constant L determines the radius: smaller L means a larger safe zone.
 
-Moving **p away from 2** restores nonlinear computation. Cross-validation selects the value of p that balances accuracy against the strength of the safety certificate.
+---
+
+### Property 2: Privacy -- Patient Data Cannot Leak
+
+When a neural network is trained on patient data, there is a risk that the trained model "memorises" individual patients. The standard defence is **differential privacy (DP)**: clip every patient's gradient to a fixed maximum, then add noise. The problem: clipping distorts gradients and degrades accuracy. Every existing DP method for neural networks is a variant of this approach.
+
+The Banach ResNet eliminates clipping entirely. The Lipschitz constant L_p bounds every patient's gradient **automatically** -- it is a structural property of the architecture, not an external constraint.
+
+![Privacy: gradient sensitivity](figures/fig3_privacy_gradient_sensitivity.png)
+
+**Left:** In a standard network, one patient's data can produce an enormous gradient, requiring clipping (which distorts learning). **Right:** In the Banach ResNet, the Lipschitz constant bounds every patient's gradient automatically. No clipping needed. Every patient is equally protected by the architecture itself.
+
+---
+
+### Property 3: Expressivity -- The Network Can Actually Learn
+
+The architecture is parameterised by a **geometry parameter p** that controls the shape of the activation function (the duality map):
+
+> **J_p(z) = sign(z) x |z|^(p-1)**
+
+At **p = 2** (standard Euclidean geometry), the duality map is the identity -- the entire network collapses to a linear function and **cannot learn nonlinear patterns**. This is the Hilbert degeneracy, confirmed experimentally.
+
+Moving **p away from 2** restores nonlinear computation. Cross-validation selects the value that balances accuracy against the strength of the safety certificate.
+
+![Expressivity: the duality map at different p](figures/fig4_expressivity_p_values.png)
+
+**Left (p=2):** The activation is the identity -- the network is linear (useless for complex tasks). **Centre (p=3):** The activation is nonlinear, enabling complex pattern recognition while maintaining safety certificates. **Right (p=1.5):** Sublinear activation with strong privacy bounds but less expressivity.
 
 ---
 
 ## The Architecture
 
-Each residual layer applies the **duality map** as its activation function:
-
-> **J_p(z) = sign(z) x |z|^(p-1)**
-
-The update rule is:
+Each residual layer applies the duality map as its activation function, with spectrally normalised weight matrices:
 
 > **h_{k+1} = h_k - eta_k x J_p(A_k h_k + b_k)**
 
-This is a step of mirror descent in l^p geometry. Spectral normalisation on all weight matrices ensures the Lipschitz constant is computable in closed form.
+This is a step of mirror descent in l^p geometry. Spectral normalisation ensures the Lipschitz constant is computable in closed form.
 
 | p value | Activation shape | Behaviour |
 |---------|-----------------|-----------|
@@ -95,7 +121,7 @@ This is a step of mirror descent in l^p geometry. Spectral normalisation on all 
 
 ---
 
-## Proof-of-Concept Results
+## Proof-of-Concept: Real BCI Data
 
 Validated on the **BNCI2014-001** benchmark: 9 subjects, 22 EEG channels, 4-class motor imagery (left hand, right hand, feet, tongue).
 
@@ -106,6 +132,22 @@ Validated on the **BNCI2014-001** benchmark: 9 subjects, 22 EEG channels, 4-clas
 | **2.0** | **39.1%** | **2.7** | **0.2225** | **Hilbert degeneracy (affine)** |
 | **3.0** | **45.7%** | **11.35** | **0.0653** | **CV-selected best geometry** |
 | 4.0 | 40.1% | 16.5 | 0.0764 | |
+
+![p-sweep results](figures/act1_cv_and_test.png)
+
+**Panel 1:** Cross-validation selects p = 3.0 as the best geometry. **Panel 2:** Test accuracy confirms the CV selection. **Panel 3:** Certified robustness radius per prediction. **Panel 4:** Lipschitz constant -- lower is safer. The geometry parameter p controls all four quantities simultaneously.
+
+---
+
+### Per-Prediction Certificates
+
+Every single prediction (576 trials) carries its own robustness certificate.
+
+![Per-prediction certificates at p=3.0](figures/act1_certificates_p3.0.png)
+
+**Green** bars: predictions with large safe zones (high confidence). **Orange** bars: marginal predictions. **Red** bars: low-confidence predictions. **Black** bars: misclassified. A clinician can use this colour coding to decide which predictions to trust.
+
+---
 
 ### Example Certificate (p = 3.0)
 
@@ -121,11 +163,23 @@ can change this prediction. This is a mathematical proof.
 
 ---
 
-## From Toolkit to Regulatory Submission
+## The End Product: From Toolkit to Regulatory Submission
 
 The end product is not just a trained model -- it is a **certificate**: a document stating, for each prediction, the robustness radius, the privacy budget consumed, and the expressivity verification.
 
-Today, companies submitting AI medical devices provide empirical test reports (adversarial attack results, stress tests). BanachSafeAI generates **mathematical proof** instead -- deterministic, per-prediction, auditable.
+![From toolkit to regulatory submission](figures/fig6_toolkit_to_regulation.png)
+
+Today, companies submitting AI medical devices provide empirical test reports (adversarial attack results, stress tests). BanachSafeAI generates **mathematical proof** instead -- deterministic, per-prediction, auditable. This is the evidence that regulators are beginning to require and that no existing toolkit can produce.
+
+### The BanachSafeAI Toolkit
+
+The fellowship deliverable is an open-source Python toolkit providing:
+
+1. **Banach ResNet layers** -- drop-in replacements for standard neural network layers, with exact Lipschitz computation built in.
+2. **Certificate generator** -- for each prediction, outputs the robustness radius, the privacy budget consumed, and the expressivity verification.
+3. **Regulatory evidence templates** -- formatted for MHRA, FDA, and EU AI Act submissions.
+
+### Why Now
 
 Three regulatory frameworks converging in 2026 create immediate demand:
 
@@ -133,7 +187,7 @@ Three regulatory frameworks converging in 2026 create immediate demand:
 - **UK MHRA**: publishing new AI medical device framework in 2026
 - **US FDA TPLC** (2025): demands lifecycle robustness evidence for AI-enabled medical devices
 
-No existing toolkit provides the mathematical evidence these frameworks are beginning to require.
+No existing toolkit provides the mathematical evidence these frameworks require. **The certificate is the product.** It cannot be replicated by running adversarial attacks on a standard network.
 
 ---
 
