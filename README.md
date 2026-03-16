@@ -23,7 +23,7 @@ This approach has three fundamental limitations:
 
 1. **You can only test attacks you have already thought of.** A new attack tomorrow could bypass every test you ran yesterday. Passing 1,000 tests provides no guarantee about the 1,001st.
 
-2. **Empirical testing cannot guarantee behaviour outside the tested scenarios.** The set of benchmarks is necessarily finite and chosen by the developer. There is no completeness guarantee.
+2. **The developer chooses which tests to report.** The set of benchmarks is necessarily finite and selected by the submitter. A manufacturer can run many adversarial evaluations and report only those that passed. A mathematical certificate, by contrast, cannot be selectively reported --- it is a property of the architecture, not a choice of test suite.
 
 3. **Testing provides no guarantee about the worst case.** Even if the system survives every test, there is no proof that it will behave correctly on an input it has never seen before.
 
