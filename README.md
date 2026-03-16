@@ -23,7 +23,7 @@ This approach has three fundamental limitations:
 
 1. **You can only test attacks you have already thought of.** A new attack tomorrow could bypass every test you ran yesterday. Passing 1,000 tests provides no guarantee about the 1,001st.
 
-2. **The company chooses which tests to report.** A manufacturer can run 100 adversarial benchmarks, fail 30, and submit only the 70 that passed. The regulator has no way to know.
+2. **Empirical testing cannot guarantee behaviour outside the tested scenarios.** The set of benchmarks is necessarily finite and chosen by the developer. There is no completeness guarantee.
 
 3. **Testing provides no guarantee about the worst case.** Even if the system survives every test, there is no proof that it will behave correctly on an input it has never seen before.
 
@@ -49,7 +49,7 @@ In the Banach ResNet, L is **computed exactly** from the architecture's weights:
 
 > **L_p = product over all layers of (1 + eta_k x ||A_k||)**
 
-Every term in this product is known. There is no approximation.
+Every term in this product is known. There is no approximation. Because each linear layer is spectrally normalised (||A_k|| <= 1), the Lipschitz constant simplifies to L_p = product of (1 + eta_k) in the experiments.
 
 ![What is a Lipschitz constant?](figures/fig1_what_is_lipschitz.png)
 
@@ -85,7 +85,7 @@ The Banach ResNet offers a principled alternative. The Lipschitz constant L_p bo
 
 ![Privacy: gradient sensitivity](figures/fig3_privacy_gradient_sensitivity.png)
 
-**Left:** In a standard network, one patient's data can produce an enormous gradient, requiring clipping (which distorts learning). **Right:** In the Banach ResNet, the Lipschitz constant bounds every patient's gradient automatically. No clipping needed. Every patient is equally protected by the architecture itself.
+**Left:** In a standard network, one patient's data can produce an enormous gradient, requiring clipping (which distorts learning). **Right:** In the Banach ResNet, the Lipschitz bound provides structurally bounded sensitivity, potentially reducing or eliminating reliance on heuristic gradient clipping. Every patient is equally protected by the architecture itself.
 
 ---
 
@@ -185,7 +185,7 @@ The end product is not just a trained model -- it is a **certificate**: a docume
 
 ![From toolkit to regulatory submission](figures/fig6_toolkit_to_regulation.png)
 
-Today, companies submitting AI medical devices provide empirical test reports (adversarial attack results, stress tests). BanachSafeAI generates **mathematical proof** instead -- deterministic, per-prediction, auditable. This is the evidence that regulators are beginning to require and that no existing toolkit can produce.
+Today, companies submitting AI medical devices provide empirical test reports (adversarial attack results, stress tests). BanachSafeAI generates **mathematical proof** instead -- deterministic, per-prediction, auditable. This is the evidence that regulators are beginning to require. Existing certified methods rely on probabilistic smoothing or loose bounds rather than architecture-level closed-form certificates.
 
 ### The BanachSafeAI Toolkit
 
@@ -203,7 +203,7 @@ Three regulatory frameworks converging in 2026 create immediate demand:
 - **UK MHRA**: publishing new AI medical device framework in 2026
 - **US FDA TPLC** (2025): demands lifecycle robustness evidence for AI-enabled medical devices
 
-To our knowledge, no existing toolkit provides the mathematical evidence these frameworks are beginning to require. **The certificate is the differentiator.** It cannot be replicated by running adversarial attacks on a standard network.
+Existing certified methods rely on probabilistic smoothing or loose bounds rather than architecture-level closed-form certificates. **The certificate is the differentiator.** It cannot be replicated by running adversarial attacks on a standard network.
 
 **Project status:** Research prototype. The proof-of-concept validates the core mechanism on public BCI benchmarks. The fellowship year is about engineering this into a reproducible, installable package with benchmark comparisons and external validation.
 
