@@ -66,7 +66,7 @@ The same L_p bounds how much any single training example can influence the model
 
 ### Expressivity
 
-At p = 2 (standard Euclidean geometry), the duality map reduces to the identity and the network collapses to an affine function -- it cannot model nonlinear patterns (Hilbert degeneracy, confirmed experimentally). Moving p away from 2 restores nonlinear computation. The geometry parameter p controls how expressive the network is, and cross-validation selects the value that balances accuracy against the strength of the safety certificate.
+At p = 2 (standard Euclidean geometry), the duality map reduces to the identity and the network collapses to an affine function -- it cannot model nonlinear patterns. This is the Hilbert degeneracy, a structural property of the architecture. On real EEG data (BNCI2014-001), p = 2 gives the lowest accuracy (39.1%) of all geometries tested, confirming the practical consequence. Moving p away from 2 restores nonlinear computation. The geometry parameter p controls how expressive the network is, and cross-validation selects the value that balances accuracy against the strength of the safety certificate.
 
 ![Expressivity: the duality map at different p](figs/fig4_expressivity_p_values.png)
 
