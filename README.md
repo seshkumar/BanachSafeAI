@@ -11,7 +11,7 @@ A neural network architecture where **robustness**, **privacy**, and **expressiv
 | Resource | Link |
 |----------|------|
 | Interactive Demo (Google Colab) | <a href="https://colab.research.google.com/drive/11xAXxd9RqQm0abBs7k6Y-FCFksoA6_lS?usp=sharing" target="_blank">Open in Colab</a> |
-| Project Explainer (3 min) | <a href="video/banachsafeai_explainer.mp4" target="_blank">Watch</a> |
+| Project Explainer (2 min 37 sec) | <a href="video/banachsafeai_explainer.mp4" target="_blank">Watch</a> |
 
 ---
 
@@ -212,7 +212,7 @@ To run: open the link, click **Runtime** then **Run all**. All outputs are pre-r
 
 ## Project Explainer Video
 
-A 3-minute overview of the project, the architecture, and the safety certificate framework.
+A 2 minute 37 second overview of the project, the architecture, and the safety certificate framework.
 
 <a href="video/banachsafeai_explainer.mp4" target="_blank">Watch the explainer</a>
 
